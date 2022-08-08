@@ -54,8 +54,6 @@ function App() {
       }
     });
     getUser().then((userData) => setUser(userData));
-    // Added access token to use effect
-    setToken(data.signInUserSession.accessToken.jwtToken);
   }, []);
   // For midway authentication: Get user
   function getUser() {
