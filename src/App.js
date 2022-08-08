@@ -32,6 +32,7 @@ Amplify.configure(config);
 function App() {
   // User variable for midway authentication
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   // For midway authentication: use effect
   useEffect(() => {
     Hub.listen("auth", ({ payload: { event, data } }) => {
@@ -42,10 +43,7 @@ function App() {
           getUser().then((userData) => setUser(userData));
           // Trying to get the user token
           console.log(data.signInUserSession.idToken)
-          // console.log(user)
-          // console.log(user.signInUserSession.idToken.jwtToken)
-          // console.log(user[signInUserSession])
-          // console.log(data.signInUserSession.idToken)
+          setToken(data.signInUserSession.idToken.jwtToken)
           break;
         case "signOut":
           setUser(null);
