@@ -41,7 +41,7 @@ function App() {
           console.log(event);
           console.log(data);
           getUser().then((userData) => setUser(userData));
-          // Trying to get the user token
+          // Getting the user token
           console.log(data.signInUserSession.accessToken.jwtToken)
           setToken(data.signInUserSession.accessToken.jwtToken)
           break;
@@ -54,8 +54,8 @@ function App() {
       }
     });
     getUser().then((userData) => setUser(userData));
-  // Get bearer token when adding or editid are changed
-  }, [adding, editid]);
+  // Get bearer token when adding, editid, or gobjs are changed
+  }, [adding, editid, gobjs]);
   // For midway authentication: Get user
   function getUser() {
     return Auth.currentAuthenticatedUser()
@@ -150,6 +150,7 @@ function App() {
     console.log(auth); 
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
+    // Adding authorization token
     myHeaders.append("Authorization", auth);
     var raw = JSON.stringify({
       customer: customer,
