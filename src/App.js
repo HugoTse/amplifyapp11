@@ -54,7 +54,8 @@ function App() {
       }
     });
     getUser().then((userData) => setUser(userData));
-  }, []);
+  // Get bearer token when adding or editid are changed
+  }, [adding, editid]);
   // For midway authentication: Get user
   function getUser() {
     return Auth.currentAuthenticatedUser()
@@ -145,6 +146,7 @@ function App() {
     var myHeaders = new Headers();
     // var auth = 'Bearer ' + token;
     var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
+    // Log the access key
     console.log(auth); 
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
