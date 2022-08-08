@@ -143,8 +143,11 @@ function App() {
     console.log(use);
     // instantiate a headers object
     var myHeaders = new Headers();
+    var auth = 'Bearer ' + token;
+    console.log(auth); 
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", auth);
     var raw = JSON.stringify({
       customer: customer,
       service: service,
@@ -164,7 +167,7 @@ function App() {
     };
     // make API call with parameters and use promises to get response
     await fetch(
-      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v2/create",
+      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v3/create",
       requestOptions
     )
       .then((response) => response.text())
