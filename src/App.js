@@ -106,12 +106,28 @@ function App() {
 
   // Fetch the gobjs in the table
   async function fetchGobjs() {
-    const headers = {
-      "Content-Type": "application, json",
+    // const headers = {
+    //   "Content-Type": "application, json",
+    // };
+    // instantiate a headers object
+    var myHeaders = new Headers();
+    // var auth = 'Bearer ' + token;
+    var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
+    // Log the access key
+    console.log(auth); 
+    // add content type header to object
+    myHeaders.append("Content-Type", "application/json");
+    // Adding authorization token
+    myHeaders.append("Authorization", auth);
+    // create a JSON object with parameters for API call and store in a variable
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
     };
     const apiResponse = await fetch(
-      "https://hxk1bvw597.execute-api.us-west-2.amazonaws.com/v2/read",
-      { headers }
+      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+      requestOptions
     );
     const apiResponseJSON = await apiResponse.json();
     const gs = apiResponseJSON.body;
@@ -122,12 +138,28 @@ function App() {
   // Fetch the gobjs in the table: UseEffect
   useEffect(() => {
     async function fetc() {
-      const headers = {
-        "Content-Type": "application, json",
+      // const headers = {
+      //   "Content-Type": "application, json",
+      // };
+      // instantiate a headers object
+      var myHeaders = new Headers();
+      // var auth = 'Bearer ' + token;
+      var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
+      // Log the access key
+      console.log(auth); 
+      // add content type header to object
+      myHeaders.append("Content-Type", "application/json");
+      // Adding authorization token
+      myHeaders.append("Authorization", auth);
+      // create a JSON object with parameters for API call and store in a variable
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
       };
       const apiResponse = await fetch(
-        "https://hxk1bvw597.execute-api.us-west-2.amazonaws.com/v2/read",
-        { headers }
+        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+        requestOptions
       );
       const apiResponseJSON = await apiResponse.json();
       const gs = apiResponseJSON.body;
@@ -138,6 +170,7 @@ function App() {
     fetc();
   }, []);
 
+  
   // Creating gobjs
   async function createGobj() {
     setUse("testUser");
