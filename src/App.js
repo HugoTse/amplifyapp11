@@ -164,7 +164,7 @@ function App() {
     };
     // make API call with parameters and use promises to get response
     await fetch(
-      "https://hxk1bvw597.execute-api.us-west-2.amazonaws.com/v0/put",
+      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v2/create",
       requestOptions
     )
       .then((response) => response.text())
