@@ -58,11 +58,12 @@
     "hostedUIDomainName": "amplifyapp11a4462201-a4462201",
     "authProvidersUserPool": [],
     "hostedUIProviderMeta": "[]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://master.d17go61x4teu7a.amplifyapp.com/\"],\"LogoutURLs\":[\"https://master.d17go61x4teu7a.amplifyapp.com/\"]}",
     "authProviders": [],
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [],
+    "hostedUIProviderCreds": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://master.d17go61x4teu7a.amplifyapp.com/\"],\"LogoutURLs\":[\"https://master.d17go61x4teu7a.amplifyapp.com/\"]}"
   }
 }
