@@ -143,7 +143,8 @@ function App() {
     console.log(use);
     // instantiate a headers object
     var myHeaders = new Headers();
-    var auth = 'Bearer ' + token;
+    // var auth = 'Bearer ' + token;
+    var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
     console.log(auth); 
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
