@@ -128,18 +128,18 @@ function App() {
         headers: myHeaders,
         redirect: "follow",
       };
-      const apiResponse = await fetch(
-        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-        requestOptions
-      );
-      const apiResponseJSON = await apiResponse.json();
-      const gs = apiResponseJSON.body;
-      // console.log(apiResponseJSON)
-      console.log(gs);
-      setGobjs([...gs]);
       return temp
     });
     console.log(temp);
+    const apiResponse = await fetch(
+      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+      requestOptions
+    );
+    const apiResponseJSON = await apiResponse.json();
+    const gs = apiResponseJSON.body;
+    // console.log(apiResponseJSON)
+    console.log(gs);
+    setGobjs([...gs]);
     // Auth.currentAuthenticatedUser().then((userData) => setUser(userData))
     // getUser().then((userData) => setUser(userData));
     // // instantiate a headers object
@@ -192,18 +192,18 @@ function App() {
           headers: myHeaders,
           redirect: "follow",
         };
-        const apiResponse = await fetch(
-          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-          requestOptions
-        );
-        const apiResponseJSON = await apiResponse.json();
-        const gs = apiResponseJSON.body;
-        // console.log(apiResponseJSON)
-        console.log(gs);
-        setGobjs([...gs]);
         return temp
       });
       console.log(temp);
+      const apiResponse = await fetch(
+        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+        requestOptions
+      );
+      const apiResponseJSON = await apiResponse.json();
+      const gs = apiResponseJSON.body;
+      // console.log(apiResponseJSON)
+      console.log(gs);
+      setGobjs([...gs]);
       // // Auth.currentAuthenticatedUser().then((userData) => setUser(userData))
       // // getUser().then((userData) => setUser(userData));
       // // instantiate a headers object
