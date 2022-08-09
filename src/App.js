@@ -118,6 +118,7 @@ function App() {
       var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
       // Log the access key
       console.log(auth); 
+      setToken(auth);
       // add content type header to object
       myHeaders.append("Content-Type", "application/json");
       // Adding authorization token
@@ -157,6 +158,7 @@ function App() {
         var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
         // Log the access key
         console.log(auth); 
+        setToken(auth);
         // add content type header to object
         myHeaders.append("Content-Type", "application/json");
         // Adding authorization token
@@ -186,6 +188,7 @@ function App() {
   }, []);
 
 
+  
   // Creating gobjs
   async function createGobj() {
     setUse("testUser");
