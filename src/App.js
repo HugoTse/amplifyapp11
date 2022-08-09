@@ -134,9 +134,24 @@ function App() {
         setToken(auth);
       });
     }
+    async function fetchGobjs() {
+      const headers = {
+        "Content-Type": "application/json",
+        "Authorization": token
+      };
+      const apiResponse = await fetch(
+        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+        { headers }
+      );
+      const apiResponseJSON = await apiResponse.json();
+      const gs = apiResponseJSON.body;
+      console.log(gs);
+      setGobjs([...gs]);
+    }
     console.log(token);
-    fetc();
+    fetc().then(fetchGobjs());
   }, []);
+
 
   // For Gobjs
   const [gobjs, setGobjs] = useState([]);
