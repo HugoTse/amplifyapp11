@@ -137,6 +137,8 @@ function App() {
   // Fetch the gobjs in the table: UseEffect
   useEffect(() => {
     async function fetc() {
+      // Get the user data for the access token first
+      getUser().then((userData) => setUser(userData));
       // instantiate a headers object
       var myHeaders = new Headers();
       // var auth = 'Bearer ' + token;
