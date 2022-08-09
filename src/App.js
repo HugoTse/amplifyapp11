@@ -107,7 +107,9 @@ function App() {
   // Fetch the gobjs in the table
   async function fetchGobjs() {
     // Get the user data for the access token first
-    Auth.currentAuthenticatedUser().then((userData) => setUser(userData))
+    var temp = Auth.currentAuthenticatedUser()
+    console.log(temp)
+    // Auth.currentAuthenticatedUser().then((userData) => setUser(userData))
     // getUser().then((userData) => setUser(userData));
     // instantiate a headers object
     var myHeaders = new Headers();
@@ -139,7 +141,9 @@ function App() {
   useEffect(() => {
     async function fetc() {
       // Get the user data for the access token first
-      Auth.currentAuthenticatedUser().then((userData) => setUser(userData))
+      var temp = Auth.currentAuthenticatedUser()
+      console.log(temp)
+      // Auth.currentAuthenticatedUser().then((userData) => setUser(userData))
       // getUser().then((userData) => setUser(userData));
       // instantiate a headers object
       var myHeaders = new Headers();
