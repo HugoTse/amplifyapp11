@@ -103,25 +103,7 @@ function App() {
 
 
 
-  // UseEffect for the token
-  // useEffect(() => {
-  //   async function fetc() {
-  //     // Get the user data for the access token first
-  //     var temp = null;
-  //     Auth.currentAuthenticatedUser().then((userData) => 
-  //     {
-  //       temp = userData;
-  //       // var auth = 'Bearer ' + token;
-  //       var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
-  //       // Log the access key
-  //       console.log(auth); 
-  //       setToken(auth);
-  //     });
-  //   }
-  //   fetc();
-  // }, []);
-
-// UseEffect for the token
+// UseEffect for the token and get objects
   useEffect(() => {
     async function fetc() {
       // Get the user data for the access token first
@@ -151,51 +133,34 @@ function App() {
     fetc();
   }, []);
 
-  //   async function postData() { 
-  //     const apiName = 'MyApiName';
-  //     const path = '/path';
-  //     const myInit = { 
-  //       headers: { 
-  //         Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`,
-  //       },
-  //     };
-  //     return await API.post(apiName, path, myInit);
-  // }
-  
-    // async function fetchGobjs(auth) {
-    //   const headers = {
-    //     "Content-Type": "application/json",
-    //     "Authorization": auth
-    //   };
-    //   const apiResponse = await fetch(
-    //     "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-    //     { headers }
-    //   );
-    //   const apiResponseJSON = await apiResponse.json();
-    //   const gs = apiResponseJSON.body;
-    //   console.log(gs);
-    //   setGobjs([...gs]);
-    // }
-
-
 
   // For Gobjs
   const [gobjs, setGobjs] = useState([]);
 
   // Fetch the gobjs in the table
   async function fetchGobjs() {
-    const headers = {
-      "Content-Type": "application/json",
-      "Authorization": token
-    };
-    const apiResponse = await fetch(
-      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-      { headers }
-    );
-    const apiResponseJSON = await apiResponse.json();
-    const gs = apiResponseJSON.body;
-    console.log(gs);
-    setGobjs([...gs]);
+    var temp = null;
+    Auth.currentAuthenticatedUser().then((userData) => 
+    {
+      temp = userData;
+      // var auth = 'Bearer ' + token;
+      var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
+      fetchGobjs(auth);
+      async function fetchGobjs(auth) {
+        const headers = {
+          "Content-Type": "application/json",
+          "Authorization": auth
+        };
+        const apiResponse = await fetch(
+          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+          { headers }
+        );
+        const apiResponseJSON = await apiResponse.json();
+        const gs = apiResponseJSON.body;
+        console.log(gs);
+        setGobjs([...gs]);
+      }
+    });
   }
   // Fetch the gobjs in the table: UseEffect
   // useEffect(() => {
@@ -214,8 +179,8 @@ function App() {
   //     }
   //   fetc();
   // }, []);
-  useEffect((token) => {
-    fetchGobjs(token);
+  useEffect(() => {
+    fetchGobjs();
   }, []);
 
 
