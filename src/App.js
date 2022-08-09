@@ -109,7 +109,7 @@ function App() {
     // Get the user data for the access token first
     // var temp = Auth.currentAuthenticatedUser().then()
     var temp = null;
-    getUser.then((userData) => 
+    Auth.currentAuthenticatedUser().then((userData) => 
     {
       temp = userData;
       // instantiate a headers object
@@ -148,7 +148,7 @@ function App() {
     async function fetc() {
       // Get the user data for the access token first
       var temp = null;
-      getUser.then((userData) => 
+      Auth.currentAuthenticatedUser().then((userData) => 
       {
         temp = userData;
         // instantiate a headers object
