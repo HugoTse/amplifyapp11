@@ -125,10 +125,10 @@ function App() {
   const [gobjs, setGobjs] = useState([]);
 
   // Fetch the gobjs in the table
-  async function fetchGobjs(t) {
+  async function fetchGobjs() {
     const headers = {
       "Content-Type": "application/json",
-      "Authorization": t
+      "Authorization": Auth.currentAuthenticatedUser().signInUserSession.accessToken.jwtToken
     };
     const apiResponse = await fetch(
       "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
