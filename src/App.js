@@ -120,6 +120,8 @@ function App() {
   //   }
   //   fetc();
   // }, []);
+
+// UseEffect for the token
   useEffect(() => {
     async function fetc() {
       // Get the user data for the access token first
@@ -129,28 +131,52 @@ function App() {
         temp = userData;
         // var auth = 'Bearer ' + token;
         var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
-        // Log the access key
-        console.log(auth); 
-        setToken(auth);
+        fetchGobjs(auth);
+        async function fetchGobjs(auth) {
+          const headers = {
+            "Content-Type": "application/json",
+            "Authorization": auth
+          };
+          const apiResponse = await fetch(
+            "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+            { headers }
+          );
+          const apiResponseJSON = await apiResponse.json();
+          const gs = apiResponseJSON.body;
+          console.log(gs);
+          setGobjs([...gs]);
+        }
       });
     }
-    async function fetchGobjs() {
-      const headers = {
-        "Content-Type": "application/json",
-        "Authorization": token
-      };
-      const apiResponse = await fetch(
-        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-        { headers }
-      );
-      const apiResponseJSON = await apiResponse.json();
-      const gs = apiResponseJSON.body;
-      console.log(gs);
-      setGobjs([...gs]);
-    }
-    console.log(token);
-    fetc().then(fetchGobjs());
+    fetc();
   }, []);
+
+  //   async function postData() { 
+  //     const apiName = 'MyApiName';
+  //     const path = '/path';
+  //     const myInit = { 
+  //       headers: { 
+  //         Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`,
+  //       },
+  //     };
+  //     return await API.post(apiName, path, myInit);
+  // }
+  
+    // async function fetchGobjs(auth) {
+    //   const headers = {
+    //     "Content-Type": "application/json",
+    //     "Authorization": auth
+    //   };
+    //   const apiResponse = await fetch(
+    //     "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+    //     { headers }
+    //   );
+    //   const apiResponseJSON = await apiResponse.json();
+    //   const gs = apiResponseJSON.body;
+    //   console.log(gs);
+    //   setGobjs([...gs]);
+    // }
+
 
 
   // For Gobjs
