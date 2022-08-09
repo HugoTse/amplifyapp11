@@ -169,7 +169,7 @@ function App() {
         };
         return requestOptions;
       }).then((requestOptions) => {
-        const apiResponse = await fetch(
+        const apiResponse = fetch(
           "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
           requestOptions
         );
