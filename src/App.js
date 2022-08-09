@@ -104,6 +104,22 @@ function App() {
 
 
   // UseEffect for the token
+  // useEffect(() => {
+  //   async function fetc() {
+  //     // Get the user data for the access token first
+  //     var temp = null;
+  //     Auth.currentAuthenticatedUser().then((userData) => 
+  //     {
+  //       temp = userData;
+  //       // var auth = 'Bearer ' + token;
+  //       var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
+  //       // Log the access key
+  //       console.log(auth); 
+  //       setToken(auth);
+  //     });
+  //   }
+  //   fetc();
+  // }, []);
   useEffect(() => {
     async function fetc() {
       // Get the user data for the access token first
@@ -118,6 +134,7 @@ function App() {
         setToken(auth);
       });
     }
+    console.log(token);
     fetc();
   }, []);
 
@@ -128,7 +145,7 @@ function App() {
   async function fetchGobjs() {
     const headers = {
       "Content-Type": "application/json",
-      "Authorization": Auth.currentAuthenticatedUser().signInUserSession.accessToken.jwtToken
+      "Authorization": token
     };
     const apiResponse = await fetch(
       "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
