@@ -107,7 +107,7 @@ function App() {
 // Fetch the gobjs in the table
 async function fetchGobjs() {
   const headers = {
-    "Content-Type": "application, json",
+    "Content-Type": "application/json",
     "Authorization": token
   };
   const apiResponse = await fetch(
@@ -124,7 +124,7 @@ async function fetchGobjs() {
   useEffect(() => {
   async function fetc() {
     const headers = {
-      "Content-Type": "application, json",
+      "Content-Type": "application/json",
       "Authorization": token
     };
     const apiResponse = await fetch(
