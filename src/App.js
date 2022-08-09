@@ -126,50 +126,46 @@ function App() {
 
   // Fetch the gobjs in the table
   async function fetchGobjs() {
-    if (token !== null){
-      const headers = {
-        "Content-Type": "application/json",
-        "Authorization": token
-      };
-      const apiResponse = await fetch(
-        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-        { headers }
-      );
-      const apiResponseJSON = await apiResponse.json();
-      const gs = apiResponseJSON.body;
-      // console.log(apiResponseJSON)
-      console.log(gs);
-      setGobjs([...gs]);
-    }
-    }
-    // Fetch the gobjs in the table: UseEffect
-    useEffect(() => {
-      async function fetc() {
-        if(token !== null){
-          const headers = {
-            "Content-Type": "application/json",
-            "Authorization": token
-          };
-          const apiResponse = await fetch(
-            "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-            { headers }
-          );
-          const apiResponseJSON = await apiResponse.json();
-          const gs = apiResponseJSON.body;
-          // console.log(apiResponseJSON)
-          // console.log("This is gs: " + gs)
-          setGobjs([...gs]);
-        }
+    const headers = {
+      "Content-Type": "application/json",
+      "Authorization": token
+    };
+    const apiResponse = await fetch(
+      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+      { headers }
+    );
+    const apiResponseJSON = await apiResponse.json();
+    const gs = apiResponseJSON.body;
+    // console.log(apiResponseJSON)
+    console.log(gs);
+    setGobjs([...gs]);
+  }
+  // Fetch the gobjs in the table: UseEffect
+  useEffect(() => {
+    async function fetc() {
+        const headers = {
+          "Content-Type": "application/json",
+          "Authorization": token
+        };
+        const apiResponse = await fetch(
+          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+          { headers }
+        );
+        const apiResponseJSON = await apiResponse.json();
+        const gs = apiResponseJSON.body;
+        // console.log(apiResponseJSON)
+        // console.log("This is gs: " + gs)
+        setGobjs([...gs]);
       }
-      fetc();
-    }, []);
+    fetc();
+  }, []);
 
 
 
   // Creating gobjs
   async function createGobj() {
-    setUse("testUser");
-    console.log(use);
+    // setUse("testUser");
+    // console.log(use);
     // instantiate a headers object
     var myHeaders = new Headers();
     // var auth = 'Bearer ' + token;
