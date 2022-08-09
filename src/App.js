@@ -128,45 +128,18 @@ function App() {
         headers: myHeaders,
         redirect: "follow",
       };
-      return temp
+      return requestOptions;
+    }).then((requestOptions) => {
+      const apiResponse = await fetch(
+        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+        requestOptions
+      );
+      const apiResponseJSON = await apiResponse.json();
+      const gs = apiResponseJSON.body;
+      // console.log(apiResponseJSON)
+      console.log(gs);
+      setGobjs([...gs]);
     });
-    console.log(temp);
-    const apiResponse = await fetch(
-      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-      requestOptions
-    );
-    const apiResponseJSON = await apiResponse.json();
-    const gs = apiResponseJSON.body;
-    // console.log(apiResponseJSON)
-    console.log(gs);
-    setGobjs([...gs]);
-    // Auth.currentAuthenticatedUser().then((userData) => setUser(userData))
-    // getUser().then((userData) => setUser(userData));
-    // // instantiate a headers object
-    // var myHeaders = new Headers();
-    // // var auth = 'Bearer ' + token;
-    // var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
-    // // Log the access key
-    // console.log(auth); 
-    // // add content type header to object
-    // myHeaders.append("Content-Type", "application/json");
-    // // Adding authorization token
-    // myHeaders.append("Authorization", auth);
-    // // create a JSON object with parameters for API call and store in a variable
-    // var requestOptions = {
-    //   method: "GET",
-    //   headers: myHeaders,
-    //   redirect: "follow",
-    // };
-    // const apiResponse = await fetch(
-    //   "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-    //   requestOptions
-    // );
-    // const apiResponseJSON = await apiResponse.json();
-    // const gs = apiResponseJSON.body;
-    // // console.log(apiResponseJSON)
-    // console.log(gs);
-    // setGobjs([...gs]);
   }
   // Fetch the gobjs in the table: UseEffect
   useEffect(() => {
@@ -192,45 +165,18 @@ function App() {
           headers: myHeaders,
           redirect: "follow",
         };
-        return temp
+        return requestOptions;
+      }).then((requestOptions) => {
+        const apiResponse = await fetch(
+          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+          requestOptions
+        );
+        const apiResponseJSON = await apiResponse.json();
+        const gs = apiResponseJSON.body;
+        // console.log(apiResponseJSON)
+        console.log(gs);
+        setGobjs([...gs]);
       });
-      console.log(temp);
-      const apiResponse = await fetch(
-        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-        requestOptions
-      );
-      const apiResponseJSON = await apiResponse.json();
-      const gs = apiResponseJSON.body;
-      // console.log(apiResponseJSON)
-      console.log(gs);
-      setGobjs([...gs]);
-      // // Auth.currentAuthenticatedUser().then((userData) => setUser(userData))
-      // // getUser().then((userData) => setUser(userData));
-      // // instantiate a headers object
-      // var myHeaders = new Headers();
-      // // var auth = 'Bearer ' + token;
-      // var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
-      // // Log the access key
-      // console.log(auth); 
-      // // add content type header to object
-      // myHeaders.append("Content-Type", "application/json");
-      // // Adding authorization token
-      // myHeaders.append("Authorization", auth);
-      // // create a JSON object with parameters for API call and store in a variable
-      // var requestOptions = {
-      //   method: "GET",
-      //   headers: myHeaders,
-      //   redirect: "follow",
-      // };
-      // const apiResponse = await fetch(
-      //   "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-      //   requestOptions
-      // );
-      // const apiResponseJSON = await apiResponse.json();
-      // const gs = apiResponseJSON.body;
-      // // console.log(apiResponseJSON)
-      // // console.log("This is gs: " + gs)
-      // setGobjs([...gs]);
     }
     fetc();
   }, []);
