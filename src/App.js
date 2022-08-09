@@ -102,7 +102,7 @@ function App() {
   };
 
 
-  
+
   // UseEffect for the token
   useEffect(() => {
     async function fetc() {
@@ -126,7 +126,7 @@ function App() {
 
   // Fetch the gobjs in the table
   async function fetchGobjs() {
-    if (token != null){
+    if (token !== null){
       const headers = {
         "Content-Type": "application/json",
         "Authorization": token
@@ -144,24 +144,24 @@ function App() {
     }
     // Fetch the gobjs in the table: UseEffect
     useEffect(() => {
-    async function fetc() {
-      if(token != null){
-        const headers = {
-          "Content-Type": "application/json",
-          "Authorization": token
-        };
-        const apiResponse = await fetch(
-          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-          { headers }
-        );
-        const apiResponseJSON = await apiResponse.json();
-        const gs = apiResponseJSON.body;
-        // console.log(apiResponseJSON)
-        // console.log("This is gs: " + gs)
-        setGobjs([...gs]);
+      async function fetc() {
+        if(token !== null){
+          const headers = {
+            "Content-Type": "application/json",
+            "Authorization": token
+          };
+          const apiResponse = await fetch(
+            "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+            { headers }
+          );
+          const apiResponseJSON = await apiResponse.json();
+          const gs = apiResponseJSON.body;
+          // console.log(apiResponseJSON)
+          // console.log("This is gs: " + gs)
+          setGobjs([...gs]);
+        }
       }
-    }
-    fetc();
+      fetc();
     }, []);
 
 
