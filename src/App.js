@@ -130,11 +130,13 @@ function App() {
       };
       return requestOptions;
     }).then((requestOptions) => {
-      const apiResponse = await fetch(
+      const apiResponse = fetch(
         "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
         requestOptions
       );
-      const apiResponseJSON = await apiResponse.json();
+      return apiResponse;
+    }).then((apiResponse) => {
+      const apiResponseJSON = apiResponse.json();
       const gs = apiResponseJSON.body;
       // console.log(apiResponseJSON)
       console.log(gs);
@@ -171,7 +173,9 @@ function App() {
           "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
           requestOptions
         );
-        const apiResponseJSON = await apiResponse.json();
+        return apiResponse;
+      }).then((apiResponse) => {
+        const apiResponseJSON = apiResponse.json();
         const gs = apiResponseJSON.body;
         // console.log(apiResponseJSON)
         console.log(gs);
