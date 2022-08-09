@@ -109,7 +109,8 @@ function App() {
     // Get the user data for the access token first
     // var temp = Auth.currentAuthenticatedUser().then()
     var temp = null;
-    getUser.then((userData) => temp = userData);
+    getUser.then((userData) => temp = userData
+    );
     console.log(temp)
     // Auth.currentAuthenticatedUser().then((userData) => setUser(userData))
     // getUser().then((userData) => setUser(userData));
