@@ -136,30 +136,29 @@ function App() {
     );
     const apiResponseJSON = await apiResponse.json();
     const gs = apiResponseJSON.body;
-    // console.log(apiResponseJSON)
     console.log(gs);
     setGobjs([...gs]);
   }
   // Fetch the gobjs in the table: UseEffect
+  // useEffect(() => {
+  //   async function fetc() {
+  //       const headers = {
+  //         "Content-Type": "application/json",
+  //         "Authorization": token
+  //       };
+  //       const apiResponse = await fetch(
+  //         "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+  //         { headers }
+  //       );
+  //       const apiResponseJSON = await apiResponse.json();
+  //       const gs = apiResponseJSON.body;
+  //       setGobjs([...gs]);
+  //     }
+  //   fetc();
+  // }, []);
   useEffect(() => {
-    async function fetc() {
-        const headers = {
-          "Content-Type": "application/json",
-          "Authorization": token
-        };
-        const apiResponse = await fetch(
-          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-          { headers }
-        );
-        const apiResponseJSON = await apiResponse.json();
-        const gs = apiResponseJSON.body;
-        // console.log(apiResponseJSON)
-        // console.log("This is gs: " + gs)
-        setGobjs([...gs]);
-      }
-    fetc();
+    fetchGobjs();
   }, []);
-
 
 
   // Creating gobjs
