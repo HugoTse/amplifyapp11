@@ -55,7 +55,7 @@ function App() {
     });
     getUser().then((userData) => setUser(userData));
   // Get bearer token when adding, editid, gobjs, or f are changed
-  }, [adding, editid, gobjs, f]);
+  }, [adding, editid, gobjs]);
   // For midway authentication: Get user
   function getUser() {
     return Auth.currentAuthenticatedUser()
@@ -103,11 +103,11 @@ function App() {
 
   // For Gobjs
   const [gobjs, setGobjs] = useState([]);
-  const [f, setf] = useState(false);
 
   // Fetch the gobjs in the table
   async function fetchGobjs() {
-    setf(!f);
+    // Get the user data for the access token first
+    getUser().then((userData) => setUser(userData));
     // instantiate a headers object
     var myHeaders = new Headers();
     // var auth = 'Bearer ' + token;
