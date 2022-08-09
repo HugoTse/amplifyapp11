@@ -104,47 +104,43 @@ function App() {
   // For Gobjs
   const [gobjs, setGobjs] = useState([]);
 
-  // Fetch the gobjs in the table
-  async function fetchGobjs() {
-    // Get the user data for the access token first
-    // var temp = Auth.currentAuthenticatedUser().then()
-    var temp = null;
-    Auth.currentAuthenticatedUser().then((userData) => 
-    {
-      temp = userData;
-      // instantiate a headers object
-      var myHeaders = new Headers();
-      // var auth = 'Bearer ' + token;
-      var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
-      // Log the access key
-      console.log(auth); 
-      setToken(auth);
-      // add content type header to object
-      myHeaders.append("Content-Type", "application/json");
-      // Adding authorization token
-      myHeaders.append("Authorization", auth);
-      // create a JSON object with parameters for API call and store in a variable
-      var requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-      };
-      return requestOptions;
-    }).then((requestOptions) => {
-      const apiResponse = fetch(
-        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-        requestOptions
-      );
-      return apiResponse;
-    }).then((apiResponse) => {
-      const apiResponseJSON = apiResponse.json();
-      const gs = apiResponseJSON.body;
-      // console.log(apiResponseJSON)
-      console.log(gs);
-      setGobjs([...gs]);
-    });
+// Fetch the gobjs in the table
+async function fetchGobjs() {
+  const headers = {
+    "Content-Type": "application, json",
+    "Authorization": token
+  };
+  const apiResponse = await fetch(
+    "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+    { headers }
+  );
+  const apiResponseJSON = await apiResponse.json();
+  const gs = apiResponseJSON.body;
+  // console.log(apiResponseJSON)
+  console.log(gs);
+  setGobjs([...gs]);
   }
   // Fetch the gobjs in the table: UseEffect
+  useEffect(() => {
+  async function fetc() {
+    const headers = {
+      "Content-Type": "application, json",
+      "Authorization": token
+    };
+    const apiResponse = await fetch(
+      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+      { headers }
+    );
+    const apiResponseJSON = await apiResponse.json();
+    const gs = apiResponseJSON.body;
+    // console.log(apiResponseJSON)
+    // console.log("This is gs: " + gs)
+    setGobjs([...gs]);
+  }
+  fetc();
+  }, []);
+
+  // UseEffect for the token
   useEffect(() => {
     async function fetc() {
       // Get the user data for the access token first
@@ -152,43 +148,18 @@ function App() {
       Auth.currentAuthenticatedUser().then((userData) => 
       {
         temp = userData;
-        // instantiate a headers object
-        var myHeaders = new Headers();
         // var auth = 'Bearer ' + token;
         var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
         // Log the access key
         console.log(auth); 
         setToken(auth);
-        // add content type header to object
-        myHeaders.append("Content-Type", "application/json");
-        // Adding authorization token
-        myHeaders.append("Authorization", auth);
-        // create a JSON object with parameters for API call and store in a variable
-        var requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-          redirect: "follow",
-        };
-        return requestOptions;
-      }).then((requestOptions) => {
-        const apiResponse = fetch(
-          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
-          requestOptions
-        );
-        return apiResponse;
-      }).then((apiResponse) => {
-        const apiResponseJSON = apiResponse.json();
-        const gs = apiResponseJSON.body;
-        // console.log(apiResponseJSON)
-        console.log(gs);
-        setGobjs([...gs]);
       });
     }
     fetc();
   }, []);
 
 
-  
+
   // Creating gobjs
   async function createGobj() {
     setUse("testUser");
