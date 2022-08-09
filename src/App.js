@@ -125,10 +125,10 @@ function App() {
   const [gobjs, setGobjs] = useState([]);
 
   // Fetch the gobjs in the table
-  async function fetchGobjs() {
+  async function fetchGobjs(t) {
     const headers = {
       "Content-Type": "application/json",
-      "Authorization": token
+      "Authorization": t
     };
     const apiResponse = await fetch(
       "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
@@ -156,8 +156,8 @@ function App() {
   //     }
   //   fetc();
   // }, []);
-  useEffect(() => {
-    fetchGobjs();
+  useEffect((token) => {
+    fetchGobjs(token);
   }, []);
 
 
