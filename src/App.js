@@ -114,7 +114,7 @@ function App() {
     // instantiate a headers object
     var myHeaders = new Headers();
     // var auth = 'Bearer ' + token;
-    var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
+    var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
     // Log the access key
     console.log(auth); 
     // add content type header to object
@@ -148,7 +148,7 @@ function App() {
       // instantiate a headers object
       var myHeaders = new Headers();
       // var auth = 'Bearer ' + token;
-      var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
+      var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
       // Log the access key
       console.log(auth); 
       // add content type header to object
