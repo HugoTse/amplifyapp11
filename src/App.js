@@ -54,8 +54,8 @@ function App() {
       }
     });
     getUser().then((userData) => setUser(userData));
-  // Get bearer token when adding, editid, or gobjs are changed
-  }, [adding, editid, gobjs]);
+  // Get bearer token when adding, editid, gobjs, or f are changed
+  }, [adding, editid, gobjs, f]);
   // For midway authentication: Get user
   function getUser() {
     return Auth.currentAuthenticatedUser()
@@ -103,12 +103,11 @@ function App() {
 
   // For Gobjs
   const [gobjs, setGobjs] = useState([]);
+  const [f, setf] = useState(false);
 
   // Fetch the gobjs in the table
   async function fetchGobjs() {
-    // const headers = {
-    //   "Content-Type": "application, json",
-    // };
+    setf(!f);
     // instantiate a headers object
     var myHeaders = new Headers();
     // var auth = 'Bearer ' + token;
@@ -138,9 +137,6 @@ function App() {
   // Fetch the gobjs in the table: UseEffect
   useEffect(() => {
     async function fetc() {
-      // const headers = {
-      //   "Content-Type": "application, json",
-      // };
       // instantiate a headers object
       var myHeaders = new Headers();
       // var auth = 'Bearer ' + token;
@@ -170,7 +166,7 @@ function App() {
     fetc();
   }, []);
 
-  
+
   // Creating gobjs
   async function createGobj() {
     setUse("testUser");
