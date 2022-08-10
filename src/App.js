@@ -232,35 +232,79 @@ function App() {
 
   // Delete gobj
   async function deleteGobj({ gobj }) {
+    // Log the object id
     console.log(gobj.id);
-    // instantiate a headers object
-    var myHeaders = new Headers();
-    // var auth = 'Bearer ' + token;
-    var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
-    // Log the access key
-    console.log(auth); 
-    // add content type header to object
-    myHeaders.append("Content-Type", "application/json");
-    // Adding authorization token
-    myHeaders.append("Authorization", auth);
-    var raw = JSON.stringify({ id: gobj.id });
-    // create a JSON object with parameters for API call and store in a variable
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-    // make API call with parameters and use promises to get response
-    await fetch(
-      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v5/delete",
-      requestOptions
-    )
-      .then((response) => response.text())
-      // .then((result) => alert(JSON.parse(result).body))
-      .catch((error) => console.log("error", error));
-    fetchGobjs();
+    var temp = null;
+    Auth.currentAuthenticatedUser().then((userData) => 
+    {
+      temp = userData;
+      // var auth = 'Bearer ' + token;
+      var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
+      // Body
+      var raw = JSON.stringify({ id: gobj.id });
+      console.log(auth);
+      // Pass auth and raw into deletGobj
+      deleteGobj(auth, raw);
+      // Function for deleting the object
+      async function deleteGobj(auth, raw) {
+        // instantiate a headers object
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        // Adding authorization token to header
+        myHeaders.append("Authorization", auth);
+        // create a JSON object with parameters for API call and store in a variable
+        var requestOptions = {
+          method: "PUT",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+        // make API call with parameters and use promises to get response
+        await fetch(
+          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v5/delete",
+          requestOptions
+        ).then((response) => response.text())
+        .catch((error) => console.log("error", error));
+        fetchGobjs();
+      }
+    });
   }
+
+
+
+  // // Delete gobj
+  // async function deleteGobj({ gobj }) {
+  //   console.log(gobj.id);
+  //   // instantiate a headers object
+  //   var myHeaders = new Headers();
+  //   // var auth = 'Bearer ' + token;
+  //   var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
+  //   // Log the access key
+  //   console.log(auth); 
+  //   // add content type header to object
+  //   myHeaders.append("Content-Type", "application/json");
+  //   // Adding authorization token
+  //   myHeaders.append("Authorization", auth);
+  //   var raw = JSON.stringify({ id: gobj.id });
+  //   // create a JSON object with parameters for API call and store in a variable
+  //   var requestOptions = {
+  //     method: "PUT",
+  //     headers: myHeaders,
+  //     body: raw,
+  //     redirect: "follow",
+  //   };
+  //   // make API call with parameters and use promises to get response
+  //   await fetch(
+  //     "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v5/delete",
+  //     requestOptions
+  //   )
+  //     .then((response) => response.text())
+  //     // .then((result) => alert(JSON.parse(result).body))
+  //     .catch((error) => console.log("error", error));
+  //   fetchGobjs();
+  // }
+
+
 
   // Editing gobj
   async function editGobj(gobj) {
