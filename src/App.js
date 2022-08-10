@@ -168,7 +168,7 @@ function App() {
   }, []);
 
 
-
+  // Create gobj
   async function createGobj() {
     var temp = null;
     Auth.currentAuthenticatedUser().then((userData) => 
@@ -243,7 +243,7 @@ function App() {
       // Body
       var raw = JSON.stringify({ id: gobj.id });
       console.log(auth);
-      // Pass auth and raw into deletGobj
+      // Pass auth and raw into deleteGobj
       deleteGobj(auth, raw);
       // Function for deleting the object
       async function deleteGobj(auth, raw) {
@@ -276,141 +276,276 @@ function App() {
   // Editing gobj
   async function editGobj(gobj) {
     console.log(editid);
-    // instantiate a headers object
-    var myHeaders = new Headers();
-    // var auth = 'Bearer ' + token;
-    var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
-    // Log the access key
-    console.log(auth); 
-    // add content type header to object
-    myHeaders.append("Content-Type", "application/json");
-    // Adding authorization token
-    myHeaders.append("Authorization", auth);
-    // Customer
-    if (customer != "") {
-      console.log("Customer variable not empty");
-      var rawCustomer = JSON.stringify({ id: editid, customer: customer });
-      // create a JSON object with parameters for API call and store in a variable
-      var requestOptionsCustomer = {
-        method: "PUT",
-        headers: myHeaders,
-        body: rawCustomer,
-        redirect: "follow",
-      };
-      // make API call with parameters and use promises to get response
-      await fetch(
+    var temp = null;
+    Auth.currentAuthenticatedUser().then((userData) => 
+    {
+      temp = userData;
+      // var auth = 'Bearer ' + token;
+      var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
+      console.log(auth);
+      // Customer
+      if (customer != "") {
+        console.log("Customer variable not empty");
+        var rawCustomer = JSON.stringify({ id: editid, customer: customer });
+        var requestOptionsCustomer = {
+          method: "PUT",
+          headers: myHeaders,
+          body: rawCustomer,
+          redirect: "follow",
+        };
+        // Pass auth and requestionOptions into editGobj
+        editGobj(auth, requestOptionsCustomer, 'customer');
+      }
+      // Service
+      if (service != "") {
+        console.log("Service variable not empty");
+        var rawService = JSON.stringify({ id: editid, service: service });
+        var requestOptionsService = {
+          method: "PUT",
+          headers: myHeaders,
+          body: rawService,
+          redirect: "follow",
+        };
+        // Pass auth and requestionOptions into editGobj
+        editGobj(auth, requestOptionsService, 'serviceteam');
+      }
+      // Claim
+      if (claim != "") {
+        console.log("Claim variable not empty");
+        var rawClaim = JSON.stringify({ id: editid, claim: claim });
+        var requestOptionsClaim = {
+          method: "PUT",
+          headers: myHeaders,
+          body: rawClaim,
+          redirect: "follow",
+        };
+        // Pass auth and requestionOptions into editGobj
+        editGobj(auth, requestOptionsClaim, 'claim');
+      }
+      // Winloss
+      if (winloss != "") {
+        console.log("Winloss variable not empty");
+        var rawWinloss = JSON.stringify({ id: editid, winloss: winloss });
+        var requestOptionsWinloss = {
+          method: "PUT",
+          headers: myHeaders,
+          body: rawWinloss,
+          redirect: "follow",
+        };
+        // Pass auth and requestionOptions into editGobj
+        editGobj(auth, requestOptionsWinloss, 'winloss');
+      }
+      // Priority
+      if (priority != "") {
+        console.log("Priority variable not empty");
+        var rawPriority = JSON.stringify({ id: editid, priority: priority });
+        var requestOptionsPriority = {
+          method: "PUT",
+          headers: myHeaders,
+          body: rawPriority,
+          redirect: "follow",
+        };
+        // Pass auth and requestionOptions into editGobj
+        editGobj(auth, requestOptionsPriority, 'priority');
+      }
+      // Service Team
+      if (serviceteam != "") {
+        console.log("Serviceteam variable not empty");
+        var rawServiceteam = JSON.stringify({ id: editid, serviceteam: serviceteam });
+        var requestOptionsServiceteam = {
+          method: "PUT",
+          headers: myHeaders,
+          body: rawServiceteam,
+          redirect: "follow",
+        };
+        // Pass auth and requestionOptions into editGobj
+        editGobj(auth, requestOptionsServiceteam, 'serviceteam');
+      }
+      // Function for deleting the object
+      async function editGobj(auth, request, clear) {
+        // instantiate a headers object
+        var myHeaders = new Headers();
+        // var auth = 'Bearer ' + token;
+        var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
+        // Log the access key
+        console.log(auth); 
+        // add content type header to object
+        myHeaders.append("Content-Type", "application/json");
+        // Adding authorization token
+        myHeaders.append("Authorization", auth);
+        // make API call with parameters and use promises to get response
+        await fetch(
         "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
-        requestOptionsCustomer
-      )
-        .then((response) => response.text())
+        request
+        ).then((response) => response.text())
         .catch((error) => console.log("error", error));
-    }
-    // Service
-    if (service != "") {
-      console.log("Service variable not empty");
-      var rawService = JSON.stringify({ id: editid, service: service });
-      // create a JSON object with parameters for API call and store in a variable
-      var requestOptionsService = {
-        method: "PUT",
-        headers: myHeaders,
-        body: rawService,
-        redirect: "follow",
-      };
-      // make API call with parameters and use promises to get response
-      await fetch(
-        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
-        requestOptionsService
-      )
-        .then((response) => response.text())
-        .catch((error) => console.log("error", error));
-    }
-    // Claim
-    if (claim != "") {
-      console.log("Claim variable not empty");
-      var rawClaim = JSON.stringify({ id: editid, claim: claim });
-      // create a JSON object with parameters for API call and store in a variable
-      var requestOptionsClaim = {
-        method: "PUT",
-        headers: myHeaders,
-        body: rawClaim,
-        redirect: "follow",
-      };
-      // make API call with parameters and use promises to get response
-      await fetch(
-        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
-        requestOptionsClaim
-      )
-        .then((response) => response.text())
-        .catch((error) => console.log("error", error));
-    }
-    // Winloss
-    if (winloss != "") {
-      console.log("Winloss variable not empty");
-      var rawWinloss = JSON.stringify({ id: editid, winloss: winloss });
-      // create a JSON object with parameters for API call and store in a variable
-      var requestOptionsWinloss = {
-        method: "PUT",
-        headers: myHeaders,
-        body: rawWinloss,
-        redirect: "follow",
-      };
-      // make API call with parameters and use promises to get response
-      await fetch(
-        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
-        requestOptionsWinloss
-      )
-        .then((response) => response.text())
-        .catch((error) => console.log("error", error));
-    }
-    // Priority
-    if (priority != "") {
-      console.log("Priority variable not empty");
-      var rawPriority = JSON.stringify({ id: editid, priority: priority });
-      // create a JSON object with parameters for API call and store in a variable
-      var requestOptionsPriority = {
-        method: "PUT",
-        headers: myHeaders,
-        body: rawPriority,
-        redirect: "follow",
-      };
-      // make API call with parameters and use promises to get response
-      await fetch(
-        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
-        requestOptionsPriority
-      )
-        .then((response) => response.text())
-        .catch((error) => console.log("error", error));
-    }
-    if (serviceteam != "") {
-      console.log("Serviceteam variable not empty");
-      var rawServiceTeam = JSON.stringify({
-        id: editid,
-        serviceteam: serviceteam,
-      });
-      // create a JSON object with parameters for API call and store in a variable
-      var requestOptionsServiceteam = {
-        method: "PUT",
-        headers: myHeaders,
-        body: rawServiceTeam,
-        redirect: "follow",
-      };
-      // make API call with parameters and use promises to get response
-      await fetch(
-        "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
-        requestOptionsServiceteam
-      )
-        .then((response) => response.text())
-        .catch((error) => console.log("error", error));
-    }
-    setCustomer("");
-    setService("");
-    setClaim("");
-    setWinloss("");
-    setPriority("");
-    setServiceteam("");
-    fetchGobjs();
-    clear();
+        // Clear all variables
+        if (clear == 'customer'){
+          setCustomer("");
+        }
+        if (clear == 'service'){
+          setService("");
+        }
+        if (clear == 'claim'){
+          setClaim("");
+        }
+        if (clear == 'winloss'){
+          setWinloss("");
+        }
+        if (clear == 'priority'){
+          setPriority("");
+        }
+        if (clear == 'serviceteam'){
+          setServiceteam("");
+        }
+        // Fetch the objects and clear adding/edit
+        fetchGobjs();
+        clear();
+      }
+    });
   }
+
+
+  // // Editing gobj
+  // async function editGobj(gobj) {
+  //   console.log(editid);
+  //   // instantiate a headers object
+  //   var myHeaders = new Headers();
+  //   // var auth = 'Bearer ' + token;
+  //   var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
+  //   // Log the access key
+  //   console.log(auth); 
+  //   // add content type header to object
+  //   myHeaders.append("Content-Type", "application/json");
+  //   // Adding authorization token
+  //   myHeaders.append("Authorization", auth);
+  //   // Customer
+  //   if (customer != "") {
+  //     console.log("Customer variable not empty");
+  //     var rawCustomer = JSON.stringify({ id: editid, customer: customer });
+  //     // create a JSON object with parameters for API call and store in a variable
+  //     var requestOptionsCustomer = {
+  //       method: "PUT",
+  //       headers: myHeaders,
+  //       body: rawCustomer,
+  //       redirect: "follow",
+  //     };
+  //     // make API call with parameters and use promises to get response
+  //     await fetch(
+  //       "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
+  //       requestOptionsCustomer
+  //     )
+  //       .then((response) => response.text())
+  //       .catch((error) => console.log("error", error));
+  //   }
+  //   // Service
+  //   if (service != "") {
+  //     console.log("Service variable not empty");
+  //     var rawService = JSON.stringify({ id: editid, service: service });
+  //     // create a JSON object with parameters for API call and store in a variable
+  //     var requestOptionsService = {
+  //       method: "PUT",
+  //       headers: myHeaders,
+  //       body: rawService,
+  //       redirect: "follow",
+  //     };
+  //     // make API call with parameters and use promises to get response
+  //     await fetch(
+  //       "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
+  //       requestOptionsService
+  //     )
+  //       .then((response) => response.text())
+  //       .catch((error) => console.log("error", error));
+  //   }
+  //   // Claim
+  //   if (claim != "") {
+  //     console.log("Claim variable not empty");
+  //     var rawClaim = JSON.stringify({ id: editid, claim: claim });
+  //     // create a JSON object with parameters for API call and store in a variable
+  //     var requestOptionsClaim = {
+  //       method: "PUT",
+  //       headers: myHeaders,
+  //       body: rawClaim,
+  //       redirect: "follow",
+  //     };
+  //     // make API call with parameters and use promises to get response
+  //     await fetch(
+  //       "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
+  //       requestOptionsClaim
+  //     )
+  //       .then((response) => response.text())
+  //       .catch((error) => console.log("error", error));
+  //   }
+  //   // Winloss
+  //   if (winloss != "") {
+  //     console.log("Winloss variable not empty");
+  //     var rawWinloss = JSON.stringify({ id: editid, winloss: winloss });
+  //     // create a JSON object with parameters for API call and store in a variable
+  //     var requestOptionsWinloss = {
+  //       method: "PUT",
+  //       headers: myHeaders,
+  //       body: rawWinloss,
+  //       redirect: "follow",
+  //     };
+  //     // make API call with parameters and use promises to get response
+  //     await fetch(
+  //       "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
+  //       requestOptionsWinloss
+  //     )
+  //       .then((response) => response.text())
+  //       .catch((error) => console.log("error", error));
+  //   }
+  //   // Priority
+  //   if (priority != "") {
+  //     console.log("Priority variable not empty");
+  //     var rawPriority = JSON.stringify({ id: editid, priority: priority });
+  //     // create a JSON object with parameters for API call and store in a variable
+  //     var requestOptionsPriority = {
+  //       method: "PUT",
+  //       headers: myHeaders,
+  //       body: rawPriority,
+  //       redirect: "follow",
+  //     };
+  //     // make API call with parameters and use promises to get response
+  //     await fetch(
+  //       "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
+  //       requestOptionsPriority
+  //     )
+  //       .then((response) => response.text())
+  //       .catch((error) => console.log("error", error));
+  //   }
+  //   if (serviceteam != "") {
+  //     console.log("Serviceteam variable not empty");
+  //     var rawServiceTeam = JSON.stringify({
+  //       id: editid,
+  //       serviceteam: serviceteam,
+  //     });
+  //     // create a JSON object with parameters for API call and store in a variable
+  //     var requestOptionsServiceteam = {
+  //       method: "PUT",
+  //       headers: myHeaders,
+  //       body: rawServiceTeam,
+  //       redirect: "follow",
+  //     };
+  //     // make API call with parameters and use promises to get response
+  //     await fetch(
+  //       "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
+  //       requestOptionsServiceteam
+  //     )
+  //       .then((response) => response.text())
+  //       .catch((error) => console.log("error", error));
+  //   }
+  //   setCustomer("");
+  //   setService("");
+  //   setClaim("");
+  //   setWinloss("");
+  //   setPriority("");
+  //   setServiceteam("");
+  //   fetchGobjs();
+  //   clear();
+  // }
+
+
 
   // Adding
   const [adding, setAdding] = useState(false);
@@ -475,6 +610,7 @@ function App() {
   useEffect(() => {
     setCurrentPage(currentPage);
   }, [gobjs, currentPage]);
+
 
   return (
     <div className="App">
