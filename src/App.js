@@ -205,7 +205,7 @@ function App() {
         };
         // Make the API Call
         const apiResponse = await fetch(
-          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v3/create",
           requestOptions
         ).then((response) => response.text())
         .catch((error) => console.log("error", error));
