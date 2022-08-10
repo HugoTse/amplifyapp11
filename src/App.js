@@ -274,7 +274,7 @@ function App() {
 
 
   // Editing gobj
-  async function editGobj(gobj) {
+  async function editGobj() {
     console.log(editid);
     var temp = null;
     Auth.currentAuthenticatedUser().then((userData) => 
@@ -303,7 +303,7 @@ function App() {
           redirect: "follow",
         };
         // Pass auth and requestionOptions into editGobj
-        editGobj(auth, requestOptionsCustomer, 'customer');
+        editGobj(requestOptionsCustomer, 'customer');
       }
       // Service
       if (service != "") {
@@ -316,7 +316,7 @@ function App() {
           redirect: "follow",
         };
         // Pass auth and requestionOptions into editGobj
-        editGobj(auth, requestOptionsService, 'serviceteam');
+        editGobj(requestOptionsService, 'serviceteam');
       }
       // Claim
       if (claim != "") {
@@ -329,7 +329,7 @@ function App() {
           redirect: "follow",
         };
         // Pass auth and requestionOptions into editGobj
-        editGobj(auth, requestOptionsClaim, 'claim');
+        editGobj(requestOptionsClaim, 'claim');
       }
       // Winloss
       if (winloss != "") {
@@ -342,7 +342,7 @@ function App() {
           redirect: "follow",
         };
         // Pass auth and requestionOptions into editGobj
-        editGobj(auth, requestOptionsWinloss, 'winloss');
+        editGobj(requestOptionsWinloss, 'winloss');
       }
       // Priority
       if (priority != "") {
@@ -355,7 +355,7 @@ function App() {
           redirect: "follow",
         };
         // Pass auth and requestionOptions into editGobj
-        editGobj(auth, requestOptionsPriority, 'priority');
+        editGobj(requestOptionsPriority, 'priority');
       }
       // Service Team
       if (serviceteam != "") {
@@ -368,10 +368,10 @@ function App() {
           redirect: "follow",
         };
         // Pass auth and requestionOptions into editGobj
-        editGobj(auth, requestOptionsServiceteam, 'serviceteam');
+        editGobj(requestOptionsServiceteam, 'serviceteam');
       }
       // Function for deleting the object
-      async function editGobj(auth, request, clear) {
+      async function editGobj(request, clearVar) {
         // make API call with parameters and use promises to get response
         await fetch(
         "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
@@ -379,22 +379,22 @@ function App() {
         ).then((response) => response.text())
         .catch((error) => console.log("error", error));
         // Clear all variables
-        if (clear == 'customer'){
+        if (clearVar == 'customer'){
           setCustomer("");
         }
-        if (clear == 'service'){
+        if (clearVar == 'service'){
           setService("");
         }
-        if (clear == 'claim'){
+        if (clearVar == 'claim'){
           setClaim("");
         }
-        if (clear == 'winloss'){
+        if (clearVar == 'winloss'){
           setWinloss("");
         }
-        if (clear == 'priority'){
+        if (clearVar == 'priority'){
           setPriority("");
         }
-        if (clear == 'serviceteam'){
+        if (clearVar == 'serviceteam'){
           setServiceteam("");
         }
         // Fetch the objects and clear adding/edit
