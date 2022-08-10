@@ -282,7 +282,16 @@ function App() {
       temp = userData;
       // var auth = 'Bearer ' + token;
       var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
-      console.log(auth);
+      // instantiate a headers object
+      var myHeaders = new Headers();
+      // var auth = 'Bearer ' + token;
+      var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
+      // Log the access key
+      console.log(auth); 
+      // add content type header to object
+      myHeaders.append("Content-Type", "application/json");
+      // Adding authorization token
+      myHeaders.append("Authorization", auth);
       // Customer
       if (customer != "") {
         console.log("Customer variable not empty");
@@ -363,16 +372,6 @@ function App() {
       }
       // Function for deleting the object
       async function editGobj(auth, request, clear) {
-        // instantiate a headers object
-        var myHeaders = new Headers();
-        // var auth = 'Bearer ' + token;
-        var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
-        // Log the access key
-        console.log(auth); 
-        // add content type header to object
-        myHeaders.append("Content-Type", "application/json");
-        // Adding authorization token
-        myHeaders.append("Authorization", auth);
         // make API call with parameters and use promises to get response
         await fetch(
         "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v6/edit",
