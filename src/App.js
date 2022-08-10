@@ -103,7 +103,7 @@ function App() {
 
 
 
-// UseEffect for the token and get objects
+// UseEffect for the token and getting objects
   useEffect(() => {
     async function fetc() {
       // Get the user data for the access token first
@@ -168,56 +168,116 @@ function App() {
   }, []);
 
 
-  // Creating gobjs
+
   async function createGobj() {
-    // setUse("testUser");
-    // console.log(use);
-    // instantiate a headers object
-    var myHeaders = new Headers();
-    // var auth = 'Bearer ' + token;
-    var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
-    // Log the access key
-    console.log(auth); 
-    // add content type header to object
-    myHeaders.append("Content-Type", "application/json");
-    // Adding authorization token
-    myHeaders.append("Authorization", auth);
-    var raw = JSON.stringify({
-      customer: customer,
-      service: service,
-      claim: claim,
-      winloss: winloss,
-      priority: priority,
-      serviceteam: serviceteam,
-      user: user.username,
-      // user: 'amazonfederate_hugotp'
+    var temp = null;
+    Auth.currentAuthenticatedUser().then((userData) => 
+    {
+      temp = userData;
+      // var auth = 'Bearer ' + token;
+      var auth = 'Bearer ' + temp.signInUserSession.accessToken.jwtToken;
+      // Stringify the JSON data
+      var raw = JSON.stringify({
+        customer: customer,
+        service: service,
+        claim: claim,
+        winloss: winloss,
+        priority: priority,
+        serviceteam: serviceteam,
+        user: user.username,
+        // user: 'amazonfederate_hugotp'
+      });
+      createGobjs(auth, raw);
+      // Function for creating the object
+      async function createGobjs(auth, raw) {
+        // instantiate a headers object
+        var myHeaders = new Headers();
+        // add content type header to object
+        myHeaders.append("Content-Type", "application/json");
+        // Adding authorization token to header
+        myHeaders.append("Authorization", auth);
+        // create a JSON object with parameters for API call and store in a variable
+        var requestOptions = {
+          method: "PUT",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+        // Make the API Call
+        const apiResponse = await fetch(
+          "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v4/read",
+          requestOptions
+        ).then((response) => response.text())
+        .catch((error) => console.log("error", error));
+        // Reset all variables
+        setCustomer("");
+        setService("");
+        setClaim("");
+        setWinloss("");
+        setPriority("");
+        setServiceteam("");
+        // Fetch the objects again
+        fetchGobjs();
+        // Change adding
+        setAdding(!adding);
+        // For pagination
+        setCurrentPage(Math.ceil((gobjs.length + 1) / postsPerPage));;
+      }
     });
-    // create a JSON object with parameters for API call and store in a variable
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-    // make API call with parameters and use promises to get response
-    await fetch(
-      "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v3/create",
-      requestOptions
-    )
-      .then((response) => response.text())
-      // .then((result) => alert(JSON.parse(result).body))
-      .catch((error) => console.log("error", error));
-    setCustomer("");
-    setService("");
-    setClaim("");
-    setWinloss("");
-    setPriority("");
-    setServiceteam("");
-    fetchGobjs();
-    setAdding(!adding);
-    // For pagination
-    setCurrentPage(Math.ceil((gobjs.length + 1) / postsPerPage));
   }
+
+
+  // // Creating gobjs
+  // async function createGobj() {
+  //   // setUse("testUser");
+  //   // console.log(use);
+  //   // instantiate a headers object
+  //   var myHeaders = new Headers();
+  //   // var auth = 'Bearer ' + token;
+  //   var auth = 'Bearer ' + user.signInUserSession.accessToken.jwtToken;
+  //   // Log the access key
+  //   console.log(auth); 
+  //   // add content type header to object
+  //   myHeaders.append("Content-Type", "application/json");
+  //   // Adding authorization token
+  //   myHeaders.append("Authorization", auth);
+  //   var raw = JSON.stringify({
+  //     customer: customer,
+  //     service: service,
+  //     claim: claim,
+  //     winloss: winloss,
+  //     priority: priority,
+  //     serviceteam: serviceteam,
+  //     user: user.username,
+  //     // user: 'amazonfederate_hugotp'
+  //   });
+  //   // create a JSON object with parameters for API call and store in a variable
+  //   var requestOptions = {
+  //     method: "PUT",
+  //     headers: myHeaders,
+  //     body: raw,
+  //     redirect: "follow",
+  //   };
+  //   // make API call with parameters and use promises to get response
+  //   await fetch(
+  //     "https://te1ifmd6f9.execute-api.us-west-2.amazonaws.com/v3/create",
+  //     requestOptions
+  //   )
+  //     .then((response) => response.text())
+  //     // .then((result) => alert(JSON.parse(result).body))
+  //     .catch((error) => console.log("error", error));
+  //   setCustomer("");
+  //   setService("");
+  //   setClaim("");
+  //   setWinloss("");
+  //   setPriority("");
+  //   setServiceteam("");
+  //   fetchGobjs();
+  //   setAdding(!adding);
+  //   // For pagination
+  //   setCurrentPage(Math.ceil((gobjs.length + 1) / postsPerPage));
+  // }
+
 
   // Delete gobj
   async function deleteGobj({ gobj }) {
